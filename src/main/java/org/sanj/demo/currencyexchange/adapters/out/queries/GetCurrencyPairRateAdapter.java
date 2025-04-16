@@ -1,0 +1,23 @@
+package org.sanj.demo.currencyexchange.adapters.out.queries;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.NotImplementedException;
+import org.sanj.demo.currencyexchange.application.out.queries.GetCurrencyPairRatePort;
+import org.sanj.demo.currencyexchange.domain.Currency;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+@Component
+class GetCurrencyPairRateAdapter implements GetCurrencyPairRatePort {
+  @Override
+  public BigDecimal execute(final Currency from, final Currency to) {
+    throw new NotImplementedException();
+  }
+}
