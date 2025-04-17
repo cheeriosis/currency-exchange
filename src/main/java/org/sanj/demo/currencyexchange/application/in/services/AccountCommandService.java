@@ -3,7 +3,6 @@ package org.sanj.demo.currencyexchange.application.in.services;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.sanj.demo.currencyexchange.application.in.commands.ConvertAmountUseCase;
 import org.sanj.demo.currencyexchange.application.in.commands.OpenAccountUseCase;
 import org.sanj.demo.currencyexchange.application.out.commands.CreateAccountPort;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Slf4j
 @Service
 class AccountCommandService implements OpenAccountUseCase, ConvertAmountUseCase {
   GenerateUniqueAccountNumberPort generateUniqueAccountNumberPort;

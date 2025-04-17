@@ -3,18 +3,25 @@ package org.sanj.demo.currencyexchange.adapters.out.queries;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.NotImplementedException;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.sanj.demo.currencyexchange.adapters.out.commands.jpa.repositories.AccountRepository;
 import org.sanj.demo.currencyexchange.application.out.queries.GenerateUniqueAccountNumberPort;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Slf4j
 @Component
 class GenerateUniqueAccountNumberAdapter implements GenerateUniqueAccountNumberPort {
+  AccountRepository accountRepository;
+
   @Override
   public String execute() {
-    throw new NotImplementedException();
+    String number;
+
+    do {
+      number = RandomStringUtils.secure().nextNumeric(10);
+    } while (accountRepository.existsById(number));
+
+    return number;
   }
 }

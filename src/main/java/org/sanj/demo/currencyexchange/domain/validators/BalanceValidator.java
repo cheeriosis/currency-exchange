@@ -18,7 +18,7 @@ public class BalanceValidator {
     CurrencyAmountValidator.validate(to);
 
     if (balances.isEmpty() || Objects.isNull(balances.get(from.getCurrency()))) {
-      throw new AccountCurrencyException();
+      throw new AccountCurrencyException(from.getCurrency());
     }
 
     final var baseCurrency = from.getCurrency();

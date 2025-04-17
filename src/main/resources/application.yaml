@@ -3,4 +3,24 @@ spring:
     name: currency-exchange
   docker:
     compose:
-      enabled: false
+      enabled: true
+  jpa:
+    open-in-view: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/currency-wallet?ApplicationName=${spring.application.name}
+    username: postgres
+    password: postgres
+    hikari:
+      schema: wallet
+  liquibase:
+    liquibase-schema: public
+    default-schema: wallet
+server:
+  error:
+    include-message: always
+app:
+  out:
+    services:
+      exchange-rates:
+        url: https://api.nbp.pl/api/exchangerates/rates

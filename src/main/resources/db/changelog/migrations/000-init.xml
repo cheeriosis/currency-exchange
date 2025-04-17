@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <property name="uuid_type" value="uuid" dbms="postgresql"/>
+  <property name="uuid_function" value="gen_random_uuid()" dbms="postgresql"/>
+
+  <changeSet id="0" author="Sandra Nikołaj">
+    <sql>
+      create schema if not exists wallet;
+    </sql>
+  </changeSet>
+
+  <changeSet id="1" author="Sandra Nikołaj">
+    <createTable tableName="accounts">
+      <column name="number" type="varchar(10)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="first_name" type="varchar">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_name" type="varchar">
+        <constraints nullable="false"/>
+      </column>
+      <column name="creation_time" type="timestamptz" defaultValue="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="currency_balances">
+      <column name="account_number" type="varchar(10)">
+        <constraints nullable="false" references="accounts(number)" foreignKeyName="currency_balances_accounts_fkey"/>
+      </column>
+      <column name="currency" type="varchar(3)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="amount" type="decimal">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addUniqueConstraint tableName="currency_balances" columnNames="account_number, currency"/>
+  </changeSet>
+</databaseChangeLog>

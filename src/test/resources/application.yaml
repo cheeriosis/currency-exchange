@@ -1,0 +1,11 @@
+spring:
+  test:
+    database:
+      replace: none
+  datasource:
+    url: jdbc:tc:postgresql:17-alpine:///db
+app:
+  out:
+    services:
+      exchange-rates:
+        url: https://api.nbp.pl/api/exchangerates/rates
