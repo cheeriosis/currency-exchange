@@ -1,9 +1,15 @@
 services:
   postgres:
+    container_name: currency-wallet
     image: postgres:17
     environment:
       POSTGRES_DB: currency-wallet
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     ports:
-      - '5432'
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

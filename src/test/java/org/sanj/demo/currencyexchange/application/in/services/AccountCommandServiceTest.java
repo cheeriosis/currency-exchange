@@ -137,7 +137,8 @@ class AccountCommandServiceTest {
     when(getAccountPort.execute(ACCOUNT_NUMBER)).thenReturn(newEnzoDeSensoAccount);
     when(getCurrencyPairRatePort.execute(Currency.USD, Currency.PLN)).thenReturn(USDPLN_RATE);
     assertThatThrownBy(() -> accountCommandService.execute(CONVERT_10_USD_TO_PLN_COMMAND_OK))
-        .isInstanceOf(AccountCurrencyException.class);
+        .isInstanceOf(AccountCurrencyException.class)
+        .hasMessage("Account has no USD currency");
     verify(updateAccountBalancesPort, never()).execute(any(UpdateAccountBalancesPort.Command.class));
   }
 
