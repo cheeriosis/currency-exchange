@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.sanj.demo.currencyexchange.adapters.out.queries.rest.NbpRestClient;
 import org.sanj.demo.currencyexchange.application.out.queries.GetCurrencyPairRatePort;
 import org.sanj.demo.currencyexchange.domain.Currency;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,6 +20,7 @@ import java.math.RoundingMode;
 class GetCurrencyPairRateAdapter implements GetCurrencyPairRatePort {
   NbpRestClient exchangeRateRestClient;
 
+  @Cacheable(value = "exchangeRates", key = "#to")
   @Override
   public BigDecimal execute(final Currency from, final Currency to) {
     if (Currency.PLN.equals(from)) {
