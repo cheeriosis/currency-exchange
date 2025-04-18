@@ -9,10 +9,13 @@ import org.sanj.demo.currencyexchange.application.out.commands.CreateAccountPort
 import org.sanj.demo.currencyexchange.application.out.commands.UpdateAccountBalancesPort;
 import org.sanj.demo.currencyexchange.domain.Account;
 import org.sanj.demo.currencyexchange.domain.Currency;
+import org.sanj.demo.currencyexchange.domain.CurrencyAmount;
 import org.sanj.demo.currencyexchange.domain.Owner;
+import org.sanj.demo.currencyexchange.domain.events.MoneyConvertedEvent;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +23,8 @@ import static org.sanj.demo.currencyexchange.domain.Currency.PLN;
 import static org.sanj.demo.currencyexchange.domain.Currency.USD;
 
 public class Fixtures {
+  public static final Comparator<BigDecimal> BIG_DECIMAL_COMPARATOR = (a, b) -> ((BigDecimal) a).compareTo((BigDecimal) b);
+
   public static final String ACCOUNT_NUMBER = "9078563412";
   public static final String FIRST_NAME_ENZO = "Enzo";
   public static final String LAST_NAME_DE_SENSO = "De Senso";
@@ -96,6 +101,13 @@ public class Fixtures {
   public static final UpdateAccountBalancesPort.Command UPDATE_USD_ACCOUNT_BALANCES_COMMAND_OK_USD_TO_PLN = new UpdateAccountBalancesPort.Command(
       ACCOUNT_NUMBER, USD_ENZO_DE_SENSO_BALANCE_MAP_AFTER_USD_TO_PLN_CONVERSION);
 
+  public static final CurrencyAmount PLN_10 = CurrencyAmount.builder().currency(PLN).amount(BigDecimal.TEN).build();
+  public static final CurrencyAmount PLN_37_61 = CurrencyAmount.builder().currency(PLN).amount(BigDecimal.valueOf(37.61)).build();
+  public static final CurrencyAmount USD_10 = CurrencyAmount.builder().currency(USD).amount(BigDecimal.TEN).build();
+  public static final CurrencyAmount USD_2_659 = CurrencyAmount.builder().currency(USD).amount(BigDecimal.valueOf(2.659)).build();
+
+  public static final MoneyConvertedEvent MONEY_CONVERTED_EVENT_PLN_USD = new MoneyConvertedEvent(ACCOUNT_NUMBER, PLN_10, USD_2_659, PLNUSD_RATE);
+  public static final MoneyConvertedEvent MONEY_CONVERTED_EVENT_USD_PLN = new MoneyConvertedEvent(ACCOUNT_NUMBER, USD_10, PLN_37_61, USDPLN_RATE);
 
   public static CurrencyBalanceRecord plnBalanceRecord() {
     return CurrencyBalanceRecord.builder().currency(PLN).amount(INITIAL_BALANCE_23).build();

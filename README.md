@@ -21,6 +21,7 @@ currency exchanges.
 - Identyfikator numeryczny - 10 znaków
 - Kursy zwracane przez API NBP są stałe - brak sprawdzania zmiany kursu oraz brak potwierdzenia zmian
 - Nie ma możliwości kredytowania
+- Wykorzystano eventy do zapisu dodatkowych danych (historia transakcji)
 
 ### Propozycje
 
@@ -30,6 +31,8 @@ currency exchanges.
 - [ ] Izolacja testów integracyjnych
 - [ ] Logi
 - [ ] Więcej indywidualnych/szczegółowych wyjątków
+- [ ] Zapis historii konta - utworzenie, dodanie waluty, zmiana ustawień, itp.
+- [ ] `equals` i `hashCode` biorące pod uwagę porównywanie `BigDecimal` - ewentualnie jakaś libka
 
 ## Getting Started
 
