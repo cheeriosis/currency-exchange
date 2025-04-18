@@ -25,7 +25,7 @@ currency exchanges.
 
 ### Propozycje
 
-- [ ] Cache odpowiedzi z API NBP resetowany o północy - NBP nie udostępnia kursów w czasie rzeczywistym
+- [x] Cache odpowiedzi z API NBP resetowany o północy - NBP nie udostępnia kursów w czasie rzeczywistym
 - [ ] API zwracające wynik konwersji i kurs
 - [ ] API do potwierdzenia wymiany
 - [ ] Izolacja testów integracyjnych
