@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.sanj.demo.currencyexchange.application.in.commands.ConvertAmountUseCase;
 import org.sanj.demo.currencyexchange.application.in.commands.OpenAccountUseCase;
 import org.sanj.demo.currencyexchange.application.out.commands.CreateAccountPort;
+import org.sanj.demo.currencyexchange.application.out.commands.EventPublisherPort;
 import org.sanj.demo.currencyexchange.application.out.commands.UpdateAccountBalancesPort;
 import org.sanj.demo.currencyexchange.application.out.queries.GenerateUniqueAccountNumberPort;
 import org.sanj.demo.currencyexchange.application.out.queries.GetAccountPort;
@@ -24,6 +25,7 @@ class AccountCommandService implements OpenAccountUseCase, ConvertAmountUseCase 
   GetCurrencyPairRatePort getCurrencyPairRatePort;
   GetAccountPort getAccountPort;
   UpdateAccountBalancesPort updateAccountBalancesPort;
+  EventPublisherPort eventPublisherPort;
 
   @Override
   public String execute(final OpenAccountUseCase.Command command) {
@@ -43,5 +45,7 @@ class AccountCommandService implements OpenAccountUseCase, ConvertAmountUseCase 
     final var rate = getCurrencyPairRatePort.execute(command.from(), command.to());
     account.moveMoney(from, from.convert(command.to(), rate));
     updateAccountBalancesPort.execute(new UpdateAccountBalancesPort.Command(account.getNumber(), account.getBalances()));
+    eventPublisherPort.publish(account.getEvents());
+    account.clearEvents();
   }
 }

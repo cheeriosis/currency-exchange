@@ -43,4 +43,33 @@
 
     <addUniqueConstraint tableName="currency_balances" columnNames="account_number, currency"/>
   </changeSet>
+
+  <changeSet id="2" author="Sandra Nikołaj">
+    <createTable tableName="exchange_transactions">
+      <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="account_number" type="varchar(10)">
+        <constraints nullable="false" references="accounts(number)" foreignKeyName="exchange_transactions_accounts_fkey"/>
+      </column>
+      <column name="from_currency" type="varchar(3)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="from_amount" type="decimal">
+        <constraints nullable="false"/>
+      </column>
+      <column name="to_currency" type="varchar(3)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="to_amount" type="decimal">
+        <constraints nullable="false"/>
+      </column>
+      <column name="rate" type="decimal">
+        <constraints nullable="false"/>
+      </column>
+      <column name="occurrence_time" type="timestamptz" defaultValue="now()">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>

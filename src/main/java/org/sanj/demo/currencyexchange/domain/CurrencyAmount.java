@@ -2,7 +2,9 @@ package org.sanj.demo.currencyexchange.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.sanj.demo.currencyexchange.domain.validators.CurrencyAmountValidator;
 
@@ -10,6 +12,8 @@ import java.math.BigDecimal;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
+@ToString
+@EqualsAndHashCode
 @Builder
 public class CurrencyAmount {
   Currency currency;
